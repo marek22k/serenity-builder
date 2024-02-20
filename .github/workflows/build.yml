@@ -1,0 +1,22 @@
+name: "SerenityOS"
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: debian-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: sudo apt-get update; sudo apt-get -y install build-essential cmake curl libmpfr-dev libmpc-dev libgmp-dev e2fsprogs ninja-build qemu-system-gui qemu-system-x86 qemu-utils ccache rsync unzip texinfo libssl-dev
+      - name: Build
+        run: ./Meta/serenity.sh run
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: serenityos
+          path: |
+            *.iso
