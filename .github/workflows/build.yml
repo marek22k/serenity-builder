@@ -9,9 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.1
+        with:
+          repository: SerenityOS/serenity
       - name: Install dependencies
-        run: sudo apt-get update; sudo apt-get -y install build-essential cmake curl libmpfr-dev libmpc-dev libgmp-dev e2fsprogs ninja-build qemu-system-gui qemu-system-x86 qemu-utils ccache rsync unzip texinfo libssl-dev
+        run: sudo apt-get update; sudo apt-get -y install git build-essential cmake curl libmpfr-dev libmpc-dev libgmp-dev e2fsprogs ninja-build qemu-system-gui qemu-system-x86 qemu-utils ccache rsync unzip texinfo libssl-dev
       - name: Build
         run: ./Meta/serenity.sh run
       - name: Upload build artifacts
